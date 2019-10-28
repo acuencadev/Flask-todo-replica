@@ -1,6 +1,7 @@
 from flask import Flask
 
 from .routes.main import main
+from .routes.auth import auth
 from .extensions import db
 from .commands import create_tables
 
@@ -15,6 +16,7 @@ def create_app(config_file='settings.py'):
     
     # Register the blueprints
     app.register_blueprint(main)
+    app.register_blueprint(auth)
     
     # Register the commands
     app.cli.add_command(create_tables)
