@@ -14,5 +14,5 @@ def create_app(config_file='settings.py'):
     
     # Register the blueprints
     app.register_blueprint(main)
-    
+
     return app
