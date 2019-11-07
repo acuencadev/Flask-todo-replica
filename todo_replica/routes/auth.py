@@ -3,6 +3,7 @@ from flask_login import login_required, logout_user
 
 from todo_replica.extensions import db
 from todo_replica.models import User
+from todo_replica.forms import LoginForm
 
 
 auth = Blueprint('auth', __name__)
@@ -10,16 +11,15 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        
-        user = User.query.filter_by(username=username).first()
+    form = LoginForm()
+    
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
         
         if user:
             return redirect('main/index')
         
-    return render_template('auth/login.html')
+    return render_template('auth/login.html', form=form)
 
 
 @auth.route('/logout')
