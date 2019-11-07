@@ -30,7 +30,17 @@ def logout():
     return redirect('main.index')
 
 
-@auth.route('/register')
+@auth.route('/register', methods=['GET', 'POST'])
 def register():
-    # TODO: Create the register new users logic.
-    pass
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        user = User(username=username, password=password, active=True)
+        
+        db.session.add(user)
+        db.session.commit()
+        
+        return redirect('auth.login')
+    
+    return render_template('auth/register.html')
