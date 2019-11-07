@@ -1,19 +1,33 @@
-from flask import Blueprint
+from flask import Blueprint, render_template, redirect, request
+from flask_login import login_required, logout_user
+
+from todo_replica.extensions import db
+from todo_replica.models import User
 
 
 auth = Blueprint('auth', __name__)
 
 
-@auth.route('/login')
+@auth.route('/login', methods=['GET', 'POST'])
 def login():
-    # TODO: Create the login logic.
-    pass
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        user = User.query.filter_by(username=username).first()
+        
+        if user:
+            return redirect('main/index')
+        
+    return render_template('auth/login.html')
 
 
 @auth.route('/logout')
+@login_required
 def logout():
-    # TODO: Create the logout logic.
-    pass
+    logout_user()
+    
+    return redirect('main.index')
 
 
 @auth.route('/register')
