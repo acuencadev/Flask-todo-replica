@@ -1,3 +1,5 @@
+import datetime
+
 from .extensions import db
 
 
@@ -6,8 +8,8 @@ class User(db.Model):
     username = db.Column(db.String(50))
     password = db.Column(db.String(100))
     active = db.Column(db.Boolean())
-    created_at = db.Column(db.DateTime())
-    last_updated_at = db.Column(db.DateTime())
+    created_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
+    last_updated_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
 
     tasks = db.relationship(
         'Task',
@@ -21,5 +23,5 @@ class Task(db.Model):
     description = db.Column(db.Text)
     completed = db.Column(db.Boolean())
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
-    created_at = db.Column(db.DateTime())
-    last_updated_at = db.Column(db.DateTime())
+    created_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
+    last_updated_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
