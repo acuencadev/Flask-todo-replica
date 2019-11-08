@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect
-from flask_login import login_required, logout_user
+from flask_login import login_required, logout_user, login_user
 
 from todo_replica.extensions import db
 from todo_replica.models import User
@@ -16,7 +16,9 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
         
-        if user:
+        if user and user.is_correct_password(form.username.data):
+            login_user(user)
+            
             return redirect('main/index')
         
     return render_template('auth/login.html', form=form)
