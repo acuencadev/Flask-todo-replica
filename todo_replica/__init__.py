@@ -2,7 +2,7 @@ from flask import Flask
 
 from .routes.main import main
 from .routes.auth import auth
-from .extensions import db, toolbar, login_manager
+from .extensions import db, toolbar, login_manager, bcrypt
 from .commands import create_tables
 
 
@@ -15,6 +15,7 @@ def create_app(config_file='settings.py'):
     db.init_app(app)
     toolbar.init_app(app)
     login_manager.init_app(app)
+    bcrypt.init_app(app)
     
     # Register the blueprints
     app.register_blueprint(main)
