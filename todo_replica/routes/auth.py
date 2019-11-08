@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, redirect, request
+from flask import Blueprint, render_template, redirect
 from flask_login import login_required, logout_user
 
 from todo_replica.extensions import db
 from todo_replica.models import User
-from todo_replica.forms import LoginForm
+from todo_replica.forms import LoginForm, RegisterForm
 
 
 auth = Blueprint('auth', __name__)
@@ -32,15 +32,14 @@ def logout():
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        
-        user = User(username=username, password=password, active=True)
+    form = RegisterForm()
+    
+    if form.validate_on_submit():
+        user = User(username=form.username.data, password=form.password.data, active=True)
         
         db.session.add(user)
         db.session.commit()
         
         return redirect('auth.login')
     
-    return render_template('auth/register.html')
+    return render_template('auth/register.html', form=form)
