@@ -7,8 +7,8 @@ from .extensions import db, bcrypt
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50))
-    _password = db.Column(db.String(100))
+    username = db.Column(db.String(50), unique=True)
+    _password = db.Column(db.String(128))
     active = db.Column(db.Boolean())
     created_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
     last_updated_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
