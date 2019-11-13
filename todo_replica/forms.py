@@ -21,7 +21,7 @@ class RegisterForm(FlaskForm):
         Length(min=6, max=100),
         Required(),
         EqualTo('confirm_password', message="Passwords must match.")])
-    confirm_password = PasswordField('Password', validators=[
+    confirm_password = PasswordField('Confirm Password', validators=[
         Length(min=6, max=100),
         Required()])
     submit = SubmitField('Register')
