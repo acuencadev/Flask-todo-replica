@@ -1,2 +1,3 @@
 FLASK_ENV=development
 FLASK_APP=todo_replica
+FLASK_DEBUG=True
