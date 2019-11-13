@@ -1,7 +1,6 @@
 flask
 flask-wtf
 flask-login
-flask-bcrypt
 flask-sqlalchemy
 flask-debugtoolbar
 python-dotenv

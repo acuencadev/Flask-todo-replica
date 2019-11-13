@@ -1,15 +1,17 @@
 import datetime
+
 from flask_login import UserMixin
+from werkzeug import generate_password_hash, check_password_hash
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from .extensions import db, bcrypt
+from .extensions import db
 
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True)
     _password = db.Column(db.String(128))
-    active = db.Column(db.Boolean())
+    active = db.Column(db.Boolean(), default=1)
     created_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
     last_updated_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
 
@@ -24,11 +26,11 @@ class User(db.Model, UserMixin):
         return self._password
     
     @password.setter
-    def _set_password(self, plain_pass):
-        self._password = bcrypt.generate_password_hash(plain_pass)
+    def password(self, plain_pass):
+        self._password = generate_password_hash(plain_pass)
         
     def is_correct_password(self, plain_pass):
-        return bcrypt.check_password_hash(self._password, plain_pass)
+        return check_password_hash(self._password, plain_pass)
 
 
 class Task(db.Model):
