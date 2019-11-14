@@ -25,3 +25,10 @@ def create_app(config_file='settings.py'):
     app.cli.add_command(create_tables)
 
     return app
+
+
+from todo_replica.models import User
+
+@login_manager.user_loader
+def load_user(user_id):
+    User.query.get(user_id)
