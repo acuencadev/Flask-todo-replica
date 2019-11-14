@@ -11,8 +11,5 @@ main = Blueprint('main', __name__)
 @login_required
 def index():
     tasks = Task.query.filter_by(user_id=current_user.get_id()).all()
-    context = {
-        tasks: tasks
-    }
     
-    return render_template('main/index.html', **context)
+    return render_template('main/index.html', tasks=tasks)
