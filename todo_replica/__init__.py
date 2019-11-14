@@ -2,7 +2,7 @@ from flask import Flask
 
 from .routes.main import main
 from .routes.auth import auth
-from .extensions import db, toolbar, login_manager, bcrypt
+from .extensions import db, toolbar, login_manager
 from .commands import create_tables
 
 
@@ -15,7 +15,6 @@ def create_app(config_file='settings.py'):
     db.init_app(app)
     toolbar.init_app(app)
     login_manager.init_app(app)
-    bcrypt.init_app(app)
     
     from todo_replica.models import User
 
