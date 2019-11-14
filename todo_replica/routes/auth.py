@@ -14,9 +14,9 @@ def login():
     form = LoginForm()
     
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+        user = User.query.filter_by(username=form.username.data).first()
         
-        if user and user.is_correct_password(form.username.data):
+        if user and user.is_correct_password(form.password.data):
             login_user(user)
             
             return redirect(url_for('main.index'))
