@@ -17,6 +17,12 @@ def create_app(config_file='settings.py'):
     login_manager.init_app(app)
     bcrypt.init_app(app)
     
+    from todo_replica.models import User
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(user_id)
+    
     # Register the blueprints
     app.register_blueprint(main)
     app.register_blueprint(auth)
@@ -25,10 +31,3 @@ def create_app(config_file='settings.py'):
     app.cli.add_command(create_tables)
 
     return app
-
-
-from todo_replica.models import User
-
-@login_manager.user_loader
-def load_user(user_id):
-    User.query.get(user_id)
