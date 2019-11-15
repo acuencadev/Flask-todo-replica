@@ -1,6 +1,6 @@
 from flask import Flask
 
-from .routes.main import main
+from .routes.tasks import tasks
 from .routes.auth import auth
 from .extensions import db, toolbar, login_manager
 from .commands import create_tables
@@ -23,7 +23,7 @@ def create_app(config_file='settings.py'):
         return User.query.get(user_id)
     
     # Register the blueprints
-    app.register_blueprint(main)
+    app.register_blueprint(tasks)
     app.register_blueprint(auth)
     
     # Register the commands

@@ -6,20 +6,20 @@ from todo_replica.models import Task
 from todo_replica.forms import TaskForm
 
 
-main = Blueprint('main', __name__)
+tasks = Blueprint('tasks', __name__)
 
 
-@main.route('/')
+@tasks.route('/')
 @login_required
-def index():
+def uncompleted():
     tasks = Task.query.filter_by(user_id=current_user.get_id()).all()
     
-    return render_template('main/index.html', tasks=tasks)
+    return render_template('tasks/index.html', tasks=tasks)
 
 
-@main.route('/task/new', methods=['GET', 'POST'])
+@tasks.route('/task/new', methods=['GET', 'POST'])
 @login_required
-def create_task():
+def create():
     form = TaskForm()
     
     if form.validate_on_submit():
@@ -28,6 +28,6 @@ def create_task():
         db.session.add(task)
         db.session.commit()
     
-        return redirect(url_for('main.index'))
+        return redirect(url_for('tasks.index'))
     
-    return render_template('main/create.html')
+    return render_template('tasks/create.html')

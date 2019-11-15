@@ -12,7 +12,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.index'))
+        return redirect(url_for('tasks.uncompleted'))
     
     form = LoginForm()
     
@@ -22,7 +22,7 @@ def login():
         if user and user.is_correct_password(form.password.data):
             login_user(user)
             
-            return redirect(url_for('main.index'))
+            return redirect(url_for('tasks.uncompleted'))
         
     return render_template('auth/login.html', form=form)
 
@@ -32,7 +32,7 @@ def login():
 def logout():
     logout_user()
     
-    return redirect(url_for('main.index'))
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/register', methods=['GET', 'POST'])
