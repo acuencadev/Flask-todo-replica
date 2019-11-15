@@ -25,3 +25,8 @@ class RegisterForm(FlaskForm):
         Length(min=6, max=100),
         Required()])
     submit = SubmitField('Register')
+
+
+class TaskForm(FlaskForm):
+    description = TextField('Description', validators=[
+        Required()])
