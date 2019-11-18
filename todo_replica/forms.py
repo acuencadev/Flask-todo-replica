@@ -30,3 +30,4 @@ class RegisterForm(FlaskForm):
 class TaskForm(FlaskForm):
     description = TextField('Description', validators=[
         Required()])
+    submit = SubmitField('Create')

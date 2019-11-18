@@ -28,6 +28,6 @@ def create():
         db.session.add(task)
         db.session.commit()
     
-        return redirect(url_for('tasks.index'))
+        return redirect(url_for('tasks.uncompleted'))
     
-    return render_template('tasks/create.html')
+    return render_template('tasks/create.html', form=form)
