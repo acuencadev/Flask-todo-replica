@@ -36,7 +36,7 @@ class User(db.Model, UserMixin):
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.Text)
-    completed = db.Column(db.Boolean())
+    completed = db.Column(db.Boolean(), default=False)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
     created_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
     last_updated_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
