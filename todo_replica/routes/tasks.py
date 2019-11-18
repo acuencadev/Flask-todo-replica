@@ -17,6 +17,14 @@ def uncompleted():
     return render_template('tasks/index.html', tasks=tasks)
 
 
+@tasks.route('/done')
+@login_required
+def done():
+    tasks = Task.query.filter_by(user_id=current_user.get_id(), completed=True).all()
+    
+    return render_template('tasks/done.html', tasks=tasks)
+
+
 @tasks.route('/task/new', methods=['GET', 'POST'])
 @login_required
 def create():
