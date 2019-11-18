@@ -12,7 +12,7 @@ tasks = Blueprint('tasks', __name__)
 @tasks.route('/')
 @login_required
 def uncompleted():
-    tasks = Task.query.filter_by(user_id=current_user.get_id()).all()
+    tasks = Task.query.filter_by(user_id=current_user.get_id(), completed=False).all()
     
     return render_template('tasks/index.html', tasks=tasks)
 
@@ -23,7 +23,7 @@ def create():
     form = TaskForm()
     
     if form.validate_on_submit():
-        task = Task(description=form.description.data)
+        task = Task(description=form.description.data, user_id=current_user.get_id())
         
         db.session.add(task)
         db.session.commit()

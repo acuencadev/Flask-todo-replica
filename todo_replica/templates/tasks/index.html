@@ -4,5 +4,13 @@
 {% block content %}
 <div>
     <h1>TODO Replica</h1>
+
+    {% if tasks %}
+    <ul>
+    {% for task in tasks %}
+        <li>{{ task.description }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
 </div>
 {% endblock content %}
