@@ -42,7 +42,7 @@ def complete(task_id):
 def uncomplete(task_id):
     task = Task.query.get_or_404(task_id)
     
-    task.completed = True
+    task.completed = False
     
     db.session.commit()
     
