@@ -28,6 +28,8 @@
             <ul class="navbar-nav mr-auto">
                 {% if current_user.is_authenticated %}
                 <li class="nav-item"><a href="{{ url_for('tasks.create') }}" class="nav-link">New Task</a></li>
+                <li class="nav-item"><a href="{{ url_for('tasks.pending') }}" class="nav-link">Pending Tasks</a></li>
+                <li class="nav-item"><a href="{{ url_for('tasks.done') }}" class="nav-link">Done Tasks</a></li>
                 <li class="nav-item"><a href="{{ url_for('auth.logout') }}" class="nav-link">Logout</a></li>
                 {% endif %}
                 
