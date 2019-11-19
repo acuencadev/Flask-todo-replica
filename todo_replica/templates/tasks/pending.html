@@ -13,7 +13,7 @@
         {% for task in tasks %}
             <tr>
                 <td>{{ task.description }}</td>
-                <td><a href="{{ url_for('tasks.complete', task_id=task.id) }}"><img src="{{ url_for('static', filename='delete.png') }}" alt="Delete task #{{ task.id }}"></a></td>
+                <td><a href="{{ url_for('tasks.complete', task_id=task.id) }}"><img src="{{ url_for('static', filename='delete.png') }}" alt="Complete task #{{ task.id }}"></a></td>
             </tr>
         {% endfor %}
         </tbody>
