@@ -37,6 +37,18 @@ def complete(task_id):
     return redirect(url_for('tasks.pending'))
 
 
+@tasks.route('/uncomplete/<int:task_id>')
+@login_required
+def uncomplete(task_id):
+    task = Task.query.get_or_404(task_id)
+    
+    task.completed = True
+    
+    db.session.commit()
+    
+    return redirect(url_for('tasks.done'))
+
+
 @tasks.route('/task/new', methods=['GET', 'POST'])
 @login_required
 def create():

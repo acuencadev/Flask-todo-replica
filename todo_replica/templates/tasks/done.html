@@ -3,14 +3,23 @@
 
 {% block content %}
 <div>
-    <h1>Completed tasks</h1>
-
     {% if tasks %}
-    <ul>
-    {% for task in tasks %}
-        <li>{{ task.description }}</li>
-    {% endfor %}
-    </ul>
+    <table class="table">
+        <thead>
+            <th scope="col">Task</th>
+            <th scope="col"></th>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.description }}</td>
+                <td><a href="{{ url_for('tasks.uncomplete', task_id=task.id) }}"><img src="{{ url_for('static', filename='delete.png') }}" alt="Uncomplete task #{{ task.id }}"></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h2>There are not completed tasks right now...</h2>
     {% endif %}
 </div>
 {% endblock content %}
